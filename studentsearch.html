@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Search Application</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("studentSearchApp", []);
+
+        app.controller("studentSearchCtrl", function($scope) {
+            $scope.students = [
+                { name: 'John Doe', age: 20 },
+                { name: 'Alice Smith', age: 22 },
+                { name: 'Bob Johnson', age: 21 },
+                { name: 'Emma Brown', age: 23 }
+            ];
+
+            $scope.searchName = '';
+
+            $scope.clearFilters = function() {
+                $scope.searchName = '';
+            };
+        });
+    </script>
+</head>
+<body ng-app="studentSearchApp" ng-controller="studentSearchCtrl">
+    <h1>Student Search Application</h1>
+
+    <label>Search by Student Name:</label>
+    <input type="text" ng-model="searchName">
+    <button ng-click="clearFilters()">Clear Filters</button>
+
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>SLNO</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr ng-repeat="student in students | filter: { name: searchName }">
+            <td>{{$index + 1}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.age}}</td>
+        </tr>
+    </table>
+</body>
+</html>

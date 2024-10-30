@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module('loginApp', []);
+
+        app.controller('LoginController', function($scope, $window) {
+            $scope.users = [
+                { username: 'dev', password: 'password1' },
+                { username: 'john', password: 'password2' },
+                { username: 'example', password: 'password3' }
+            ];
+
+            $scope.login = function() {
+                var username = $scope.username;
+                var password = $scope.password;
+
+                var isValidUser = $scope.users.some(function(user) {
+                    return user.username === username && user.password === password;
+                });
+
+                if (isValidUser) {
+                    $window.location.href = 'dashboard.html'; 
+                } else {
+                    alert('Invalid username or password. Please try again.');
+                }
+            };
+        });
+    </script>
+</head>
+<body ng-controller="LoginController">
+    <h1>Login</h1>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" ng-model="username" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="password" required><br><br>
+
+        <button type="button" ng-click="login()">Login</button>
+    </form>
+</body>
+</html>

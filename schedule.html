@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("examScheduleApp", []);
+
+        app.controller("examScheduleCtrl", function($scope) {
+            $scope.examDates = [
+                new Date('2024-05-15'),
+                new Date('2024-05-18'),
+                new Date('2024-05-22'),
+                new Date('2024-05-25')
+            ];
+        });
+    </script>
+</head>
+<body ng-app="examScheduleApp" ng-controller="examScheduleCtrl">
+    <h1>Exam Schedule</h1>
+    <div>
+        <h2>Upcoming Exam Dates</h2>
+        <ul>
+            <li ng-repeat="examDate in examDates">
+                       <strong>Date:</strong> {{ examDate | date: 'fullDate' }}<br/>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

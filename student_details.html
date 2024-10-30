@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management Application</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+
+        app.controller("myCtrl", function($scope) {
+            $scope.students = [
+                { name: "John Doe", email: "john@e.com" },
+                { name: "Jane Smith", email: "jane@l.com" },
+                { name: "Michael Johnson", email: "michael@ssm.com" }
+            ];
+
+            $scope.newStudentName = '';
+            $scope.newStudentEmail = '';
+
+            $scope.addStudent = function() {
+                if ($scope.newStudentName && $scope.newStudentEmail) {
+                    $scope.students.push({ name: $scope.newStudentName, email: $scope.newStudentEmail });
+                    $scope.newStudentName = '';
+                    $scope.newStudentEmail = '';
+                } else {
+                    alert("Please enter both name and email to add a student.");
+                }
+            };
+
+            $scope.deleteStudent = function(index) {
+                $scope.students.splice(index, 1);
+            };
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <h2>Student Management Application</h2>
+    
+    <label>Name:</label>
+    <input type="text" ng-model="newStudentName" placeholder="Enter student name">
+    <label>Email:</label>
+    <input type="email" ng-model="newStudentEmail" placeholder="Enter student email">
+    <button ng-click="addStudent()">Add Student</button>
+    
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>SLNO</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Remove</th>
+        </tr>
+        <tr ng-repeat="student in students">
+            <td>{{$index+1}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td><button ng-click="deleteStudent($index)">Remove</button></td>
+        </tr>
+    </table>
+</body>
+</html>

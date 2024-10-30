@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grades Management Application</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("gradesApp", []);
+
+        app.controller("gradesCtrl", function($scope) {
+            $scope.students = [];
+            $scope.grades = ['A', 'B', 'C', 'D', 'F']; 
+
+            $scope.generateStudents = function() {
+                $scope.students = [];
+                for (var i = 1; i <= $scope.numStudents; i++) {
+                    var student = {
+                        name: 'Student-' + i,
+                        grade: $scope.getRandomGrade() 
+                    };
+                    $scope.students.push(student);
+                }
+            };
+
+            $scope.deleteStudent = function(index) {
+                $scope.students.splice(index, 1);
+            };
+
+            $scope.getRandomGrade = function() {
+                return $scope.grades[Math.floor(Math.random() * $scope.grades.length)];
+            };
+        });
+    </script>
+</head>
+<body ng-app="gradesApp" ng-controller="gradesCtrl">
+    <h2>Grades Management Application</h2>
+
+    <label>Number of Students:</label>
+    <input type="number" ng-model="numStudents">
+    <button ng-click="generateStudents()">Generate Students</button>
+
+    <br><br>
+
+    <table border="1">
+        <tr>
+            <th>SLNO</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Remove</th>
+        </tr>
+        <tr ng-repeat="student in students">
+            <td>{{$index+1}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.grade}}</td>
+            <td><button ng-click="deleteStudent($index)">Remove</button></td>
+        </tr>
+    </table>
+</body>
+</html>
